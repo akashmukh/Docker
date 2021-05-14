@@ -7,7 +7,7 @@ stages {
                 sh 'docker login -u akashmukh -p me@akash13'
              }
         }
-   }
+  // }
    stage('image check'){
         steps{
                 sh 'docker images'
