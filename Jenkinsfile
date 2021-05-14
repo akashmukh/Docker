@@ -5,9 +5,7 @@ pipeline {
       stage('Docker pull'){
 	 steps{
        	   agent{
-		docker{
-			image 'busybox'
-		}
+		docker{ image 'busybox'}
 	   }
 	}
       }		
