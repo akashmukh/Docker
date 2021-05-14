@@ -1,11 +1,11 @@
 pipeline {
     agent {
-        docker { image 'node:14-alpine' }
+        docker { image 'busybox' }
     }
     stages {
-        stage('Test') {
+        stage('version') {
             steps {
-                sh 'node --version'
+                sh 'busybox --version'
             }
         }
     }
