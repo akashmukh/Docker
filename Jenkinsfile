@@ -8,6 +8,11 @@ stages {
              }
         }
   // }
+   stage('image pull'){
+        steps{
+                sh 'docker image pull'
+             }
+        }
    stage('image check'){
         steps{
                 sh 'docker images'
