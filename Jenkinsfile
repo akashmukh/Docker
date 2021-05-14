@@ -1,11 +1,11 @@
 pipeline {
-    agent {
-      docker { image 'nginx' }
-    }
+    agent any 
+    
     stages{
        stage('test'){
           steps{
-                sh 'pwd'
+                sh 'docker version'
+                sh 'docker pull nginx'
             }
           }
         }
