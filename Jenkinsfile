@@ -20,7 +20,7 @@ stages {
         }
    stage('image push'){
         steps{
-               sh 'docker image tag nginx akashmukh/test/nginx && docker image push akashmukh/test/nginx'
+               sh 'docker image tag nginx akashmukh/test/nginx && docker push akashmukh/test/nginx'
              }
           }
       }
