@@ -18,12 +18,23 @@ stages {
                 sh 'docker images'
              }
         }
-   stage('image push'){
-        steps{
+   //stage('image push'){
+     //   steps{
                  //give a tag to your pulled image          
-               sh 'docker tag nginx akashmukh/test:akash'
+       //        sh 'docker tag nginx akashmukh/test:akash'
               //push the newly tagged image to your repo
-               sh 'docker push akashmukh/test:akash'
+         //      sh 'docker push akashmukh/test:akash'
+           //  }
+         // }
+   stage('git clone'){
+        steps{
+           git branch: 'main', credentialsId: '4af18a21-3317-4da0-85bc-1fbffb60821b', url: 'https://github.com/akashmukh/Docker.git'
+             }
+          }
+   stage('deploy'){
+        steps{
+          sh 'microk8s kubectl get all'
+          sh 'microk8s kubectl apply -f nginx-deploy.yml' 
              }
           }
       }
