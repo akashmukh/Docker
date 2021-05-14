@@ -1,11 +1,11 @@
 pipeline {
     agent {
-        docker { image 'busybox' }
+        docker { image 'nginx' }
     }
     stages {
-        stage('version') {
+        stage('list') {
             steps {
-                sh 'busybox --version'
+                sh 'docker images'
             }
         }
     }
