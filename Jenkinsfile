@@ -20,7 +20,10 @@ stages {
         }
    stage('image push'){
         steps{
-               sh 'docker tag nginx akashmukh/test:akash && docker push akashmukh/test:akash'
+                 //give a tag to your pulled image          
+               sh 'docker tag nginx akashmukh/test:akash'
+              //push the newly tagged image to your repo
+               sh 'docker push akashmukh/test:akash'
              }
           }
       }
