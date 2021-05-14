@@ -1,13 +1,12 @@
 pipeline {
-  agent any
-   
+    agent {
+        docker { image 'busybox' }
+    }
     stages {
-      stage('Docker pull'){
-	 steps{
-       	   agent{
-		docker{ image 'busybox'}
-	   }
-	}
-      }		
+        stage('Test') {
+            steps {
+                sh 'busybox --version'
+            }
+        }
     }
 }
