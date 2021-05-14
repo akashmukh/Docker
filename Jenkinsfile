@@ -10,7 +10,7 @@ stages {
   // }
    stage('image pull'){
         steps{
-                sh 'docker pull nginx'
+                sh 'docker pull akashmukh/test:akash'
              }
         }
    stage('image check'){
