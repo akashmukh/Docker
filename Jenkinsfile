@@ -33,8 +33,8 @@ stages {
           }
    stage('deploy'){
         steps{
-          sh 'sudo microk8s kubectl get all'
-          sh 'sudo microk8s kubectl apply -f nginx-deploy.yml' 
+          sh 'microk8s kubectl get all'
+          sh 'microk8s kubectl apply -f nginx-deploy.yml' 
              }
           }
       }
