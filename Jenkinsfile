@@ -6,7 +6,7 @@ pipeline {
     stage('Checkout Source') {
       steps {
         sh 'echo ${BUILD_NUMBER}'
-            git credentialsId: ${git_cr} , url: ${git_url}
+            git branch: 'main', credentialsId: 'github', url: 'https://github.com/akashmukh/Docker.git'
       }
     }
     stage('Deploy App') {
