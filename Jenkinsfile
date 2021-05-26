@@ -28,13 +28,13 @@ stages {
          // }
    stage('git clone'){
         steps{
-           git branch: 'main', credentialsId: '4af18a21-3317-4da0-85bc-1fbffb60821b', url: 'https://github.com/akashmukh/Docker.git'
+           git branch: 'main', credentialsId: 'github', url: 'https://github.com/akashmukh/Docker.git'
              }
           }
    stage('deploy'){
         steps{
-          sh 'microk8s kubectl get all'
-          sh 'microk8s kubectl apply -f nginx-deploy.yml' 
+          sh 'kubectl get all'
+          sh 'kubectl apply -f nginx-deploy.yml' 
              }
           }
       }
