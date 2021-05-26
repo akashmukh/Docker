@@ -1,20 +1,12 @@
 pipeline {
   agent any
-
   stages {
-
-    stage('Checkout Source') {
+    stage('Apply Kubernetes Files') {
       steps {
-        sh 'echo ${BUILD_NUMBER}'
-            git branch: 'main', credentialsId: 'github', url: 'https://github.com/akashmukh/Docker.git'
-      }
-    }
-    stage('Deploy App') {
-      steps {
-        script {
-           kubernetesDeploy(configs: "nginx-deploy.yml", kubeconfigId: "KUBECONFIG")
+          withKubeConfig([credentialsId: 'KUBECONFIG']) {
+          sh 'cat nginx-deploy.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
+          //sh 'kubectl apply -f service.yaml'
         }
-       }
-     }
-   }
+      }
+  }
 }
