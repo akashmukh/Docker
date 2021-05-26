@@ -5,8 +5,8 @@ stages {
      //   steps{
          // withCredentials([usernamePassword(credentialsId: 'dockerhubID', passwordVariable: 'pass', usernameVariable: 'user')]) {
                 //sh 'docker login -u akashmukh -p me@akash13'
-             }
-        }
+            // }
+       // }
   // }
    //stage('image pull'){
         //steps{
