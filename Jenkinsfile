@@ -33,7 +33,7 @@ stages {
           }
    stage('deploy'){
         steps{
-          sh 'kubectl get all'
+          //sh 'kubectl get all'
           sh 'kubectl apply -f nginx-deploy.yml' 
              }
           }
