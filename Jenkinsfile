@@ -21,10 +21,10 @@ pipeline {
     //}
     stage('Apply Kubernetes Deployment') {
       steps {
-          withKubeConfig([credentialsId: 'kubeconfig']) {
-          sh 'cat deployment.yaml' 
+          withKubeConfig([credentialsId: 'kube-config']) {
+          sh 'cat nginx-deploy.yaml' 
              //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
-          sh 'kubectl apply -f service.yaml'
+          sh 'kubectl apply -f nginx-deploy.yaml'
         }
       }
     }
