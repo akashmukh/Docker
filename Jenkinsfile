@@ -1,24 +1,25 @@
 pipeline {
   agent any
   stages {
-    //stage('Docker Build') {
-      //steps {
-        //sh "docker build -t kmlaydin/podinfo:${env.BUILD_NUMBER} ."
-      //}
-    //}
-    //stage('Docker Push') {
-      //steps {
-        //withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          //sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          //sh "docker push kmlaydin/podinfo:${env.BUILD_NUMBER}"
-        //}
-      //}
-    //}
-    //stage('Docker Remove Image') {
-      //steps {
-        //sh "docker rmi kmlaydin/podinfo:${env.BUILD_NUMBER}"
-      //}
-    //}
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t k8sapache2 .'
+      }
+    }
+    stage('Docker Push') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhubID', passwordVariable: 'password', usernameVariable: 'username')]) {
+          sh 'docker login -u $username -p $password'
+          sh 'docker tag k8sapache2 akashmukh/k8s-nginx:apache2-v1
+          sh 'docker push akashmukh/k8s-nginx:apache2-v1'
+        }
+      }
+    }
+    stage('Docker Remove Image') {
+      steps {
+        sh 'docker rmi akashmukh/k8s-nginx:apache2-v1'
+      }
+    }
     stage('Apply Kubernetes Deployment') {
       steps {
           withKubeConfig([credentialsId: 'kube-config']) {
