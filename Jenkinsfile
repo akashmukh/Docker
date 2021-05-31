@@ -18,7 +18,6 @@ pipeline {
     stage('Docker Remove Image') {
       steps {
         sh 'docker rmi akashmukh/apache2-k8s:apache2-v1'
-        sh 'docker rmi k8sapache2'
       }
     }
     stage('Apply Kubernetes Deployment') {
