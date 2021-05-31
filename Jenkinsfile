@@ -27,7 +27,7 @@ pipeline {
           sh 'cat apache2-deploy.yml' 
              //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
           sh 'kubectl apply -f apache2-deploy.yml'
-          sh 'kubectl apply -f apache2-service.yml
+          sh 'kubectl apply -f apache2-service.yml'
         }
       }
     }
