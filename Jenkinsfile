@@ -18,6 +18,7 @@ pipeline {
     stage('Docker Remove Image') {
       steps {
         sh 'docker rmi akashmukh/apache2-k8s:apache2-v1'
+        sh 'docker rmi k8sapache2'
       }
     }
     stage('Apply Kubernetes Deployment') {
@@ -26,6 +27,7 @@ pipeline {
           sh 'cat apache2-deploy.yml' 
              //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
           sh 'kubectl apply -f apache2-deploy.yml'
+          sh 'kubectl apply -f apache2-service.yml
         }
       }
     }
