@@ -14,8 +14,8 @@ spec:
         type: front-end
     spec:
       containers:
-        - name: nginx-container
-          image: akashmukh/test:akash
+        - name: apache2-container
+          image: akashmukh/apache2-k8s:apache2-v1
   replicas: 3
   selector:
     matchLabels:
