@@ -15,11 +15,6 @@ pipeline {
         }
       }
     }
-    stage('Docker Remove Image') {
-      steps {
-        sh 'docker rmi akashmukh/apache2-k8s:apache2-v1'
-      }
-    }
     stage('Apply Kubernetes Deployment') {
       steps {
           withKubeConfig([credentialsId: 'kube-config']) {
