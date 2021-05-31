@@ -8,5 +8,5 @@ spec:
    - nodePort: 31013
      port: 80
   selector:
-    app: myapp-deployment
+    app: myapp
     type: front-end
