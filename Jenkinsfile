@@ -10,7 +10,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhubID', passwordVariable: 'password', usernameVariable: 'username')]) {
           sh 'docker login -u $username -p $password'
-          sh 'docker tag k8sapache2 akashmukh/apache2-k8s:apache2-v1
+          sh 'docker tag k8sapache2 akashmukh/apache2-k8s:apache2-v1'
           sh 'docker push akashmukh/apache2-k8s:apache2-v1'
         }
       }
