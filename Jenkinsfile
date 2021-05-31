@@ -1,30 +1,40 @@
 pipeline {
-   agent any
-stages {
-   stage('dockerhub login'){
-        steps{
-         // withCredentials([usernamePassword(credentialsId: 'dockerhubID', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                sh 'docker login -u akashmukh -p me@akash13'
-             }
+  agent any
+  stages {
+    //stage('Docker Build') {
+      //steps {
+        //sh "docker build -t kmlaydin/podinfo:${env.BUILD_NUMBER} ."
+      //}
+    //}
+    //stage('Docker Push') {
+      //steps {
+        //withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          //sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          //sh "docker push kmlaydin/podinfo:${env.BUILD_NUMBER}"
+        //}
+      //}
+    //}
+    //stage('Docker Remove Image') {
+      //steps {
+        //sh "docker rmi kmlaydin/podinfo:${env.BUILD_NUMBER}"
+      //}
+    //}
+    stage('Apply Kubernetes Deployment') {
+      steps {
+          withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh 'cat deployment.yaml' 
+             //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
+          sh 'kubectl apply -f service.yaml'
         }
-  // }
-   stage('image pull'){
-        steps{
-                sh 'docker pull nginx'
-             }
-        }
-   stage('image check'){
-        steps{
-                sh 'docker images'
-             }
-        }
-   stage('image push'){
-        steps{
-                 //give a tag to your pulled image          
-               sh 'docker tag nginx akashmukh/test:v2.0'
-              //push the newly tagged image to your repo
-               sh 'docker push akashmukh/test:v2.0'
-             }
-          }
       }
-   }
+    }
+  }
+post {
+    success {
+      slackSend(message: "Pipeline is successfully completed.")
+    }
+    failure {
+      slackSend(message: "Pipeline failed. Please check the logs.")
+    }
+  }
+}
