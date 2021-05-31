@@ -24,7 +24,7 @@ pipeline {
           withKubeConfig([credentialsId: 'kube-config']) {
           sh 'cat nginx-deploy.yml' 
              //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
-          sh 'kubectl apply -f nginx-deploy.yml'
+          sh 'kubectl delete -f nginx-deploy.yml'
         }
       }
     }
