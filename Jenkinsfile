@@ -22,9 +22,9 @@ pipeline {
     stage('Apply Kubernetes Deployment') {
       steps {
           withKubeConfig([credentialsId: 'kube-config']) {
-          sh 'cat nginx-deploy.yaml' 
+          sh 'cat nginx-deploy.yml' 
              //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
-          sh 'kubectl apply -f nginx-deploy.yaml'
+          sh 'kubectl apply -f nginx-deploy.yml'
         }
       }
     }
