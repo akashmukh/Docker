@@ -10,22 +10,22 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhubID', passwordVariable: 'password', usernameVariable: 'username')]) {
           sh 'docker login -u $username -p $password'
-          sh 'docker tag k8sapache2 akashmukh/k8s-nginx:apache2-v1
-          sh 'docker push akashmukh/k8s-nginx:apache2-v1'
+          sh 'docker tag k8sapache2 akashmukh/apache2-k8s:apache2-v1
+          sh 'docker push akashmukh/apache2-k8s:apache2-v1'
         }
       }
     }
     stage('Docker Remove Image') {
       steps {
-        sh 'docker rmi akashmukh/k8s-nginx:apache2-v1'
+        sh 'docker rmi akashmukh/apache2-k8s:apache2-v1'
       }
     }
     stage('Apply Kubernetes Deployment') {
       steps {
           withKubeConfig([credentialsId: 'kube-config']) {
-          sh 'cat nginx-deploy.yml' 
+          sh 'cat apache2-deploy.yml' 
              //sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
-          sh 'kubectl apply -f nginx-deploy.yml'
+          sh 'kubectl apply -f apache2-deploy.yml'
         }
       }
     }
